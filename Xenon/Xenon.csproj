@@ -22,21 +22,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="../manifest.json" CopyToOutputDirectory="PreserveNewest" />
+        <None Include="../manifest.json" CopyToOutputDirectory="Always" />
     </ItemGroup>
 
     <ItemGroup>
       <None Update="CHANGELOG.md">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="icon.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="mod_info.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="README.md">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

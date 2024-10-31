@@ -39,7 +39,7 @@ namespace Xenon.Mods
                     newlineConsumer.Reset();
                 }
                 
-                    yield return token;
+                yield return token;
             }
         }
     }

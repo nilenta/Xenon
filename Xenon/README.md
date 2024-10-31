@@ -2,7 +2,7 @@
 
 Simple mod for WEBFISHING that I will gradually update overtime with more stuff.
 
-Current feature (as of 1.0.1):
+Current features (as of 1.0.1):
 - Grow upon gambling, just a little fun feature that I implemented as its own standalone mod at some point. This is configurable too.
 - Ability to modify player walk/sprint speed, dive distance, jump height, gravity, etc.
 - Zoom uncapping
