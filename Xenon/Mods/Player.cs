@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using GDWeave;
 using WebfishingSampleMod;
 
+// this can be done better
+
 namespace Xenon.Mods
 {
     public class Player : IScriptMod

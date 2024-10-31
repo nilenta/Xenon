@@ -23,7 +23,6 @@ public class Config {
     [JsonInclude] public bool AllowFishingWithNoBait = false;
     [JsonInclude] public bool NoBaitOP = false;
     [JsonInclude] public bool FishAnywhere = false;
-    [JsonInclude] public bool OPGambling = false;
 
 
     // PLAYER DATA

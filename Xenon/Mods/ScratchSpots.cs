@@ -46,10 +46,10 @@ namespace Xenon.Mods
                     newlineConsumer.Reset();
                 }
 
-                if (prizeAmountMatch.Check(token) && this.Config.OPGambling)
+                if (prizeAmountMatch.Check(token) && false) // this.Config.OPGambling
                 {
                     yield return new ConstantToken(new IntVariant(1000000));
-                    this.modInterface.Logger.Information($"[XENON]: Changed gambling prizes. LOL! {token}");
+                    this.modInterface.Logger.Information($"[XENON]: Changed gambling prizes. {token}");
                     prizeAmountMatch.Reset();
                     //newlineConsumer.SetReady();
                 } else
