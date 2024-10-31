@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using GDWeave;
 using WebfishingSampleMod;
 
-// this can be done better ik
+// this can be done better ik lol
 
 namespace Xenon.Mods
 {
