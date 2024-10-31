@@ -1,0 +1,12 @@
+.idea/
+.vs/
+*.user
+/local
+
+bin/
+obj/
+*.pck
+
+project/
+
+*.bat
