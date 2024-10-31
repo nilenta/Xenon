@@ -5,6 +5,7 @@
   "version_number": "1",
   "description": "Mod that lets you mess around with a buncha settings",
   "website_url": "https://github.com/nilenta/Xenon",
+  "dependencies": [ "NotNet-GDWeave-2.0.12" ],
   "Metadata": {
     "Name": "Xenon",
     "Author": "nilenta",

@@ -6,6 +6,8 @@ using GDWeave;
 using WebfishingSampleMod;
 using System.Reflection.Metadata;
 
+// g
+
 namespace Xenon.Mods
 {
     public class ScratchSpots : IScriptMod

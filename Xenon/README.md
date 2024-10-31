@@ -9,3 +9,7 @@ Current feature (as of v1):
 - Fishing without bait
 - Ability to fish anywhere, such as on the ground and such
 - "NoBaitOP" which makes fishing with no bait possible, and it OP. Cause why not.
+
+# Configuration
+
+You can modify the config with Hook, Line & Sinker by clicking Edit Config on the mod or you can use 
