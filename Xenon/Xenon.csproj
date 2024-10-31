@@ -5,8 +5,12 @@
         <Nullable>enable</Nullable>
         <AssemblySearchPaths>$(AssemblySearchPaths);$(GDWeavePath)/core</AssemblySearchPaths>
         <Version>1.0.0.0</Version>
-        <RunPostBuildEvent>Always</RunPostBuildEvent>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     </PropertyGroup>
+    <ItemGroup>
+      <None Remove="Xenon-HookLineSinker-Release.zip" />
+      <None Remove="Xenon-Thunderstorm-Release.zip" />
+    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="GDWeave">

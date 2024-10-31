@@ -6,8 +6,6 @@ using GDWeave;
 using WebfishingSampleMod;
 using System.Reflection.Metadata;
 
-// g
-
 namespace Xenon.Mods
 {
     public class ScratchSpots : IScriptMod
@@ -58,8 +56,6 @@ namespace Xenon.Mods
                 {
                     yield return token;
                 }
-                    //modInterface.Logger.Information($"[XENON]: {token}");
-                    
             }
         }
     }

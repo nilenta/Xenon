@@ -14,9 +14,6 @@ public class Config {
     [JsonInclude] public float PlayerJumpHeight = 7.5f;
     [JsonInclude] public float PlayerSpeedMult = 1.35f;
     [JsonInclude] public float PlayerGravity = 32.0f;
-
-
-    // camera related stuff
     [JsonInclude] public bool UncapZoom = false;
 
     // HACKS
