@@ -32,6 +32,9 @@
       <None Update="icon.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="manifest_thunderstore.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="mod_info.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

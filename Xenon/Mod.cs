@@ -8,15 +8,17 @@ public class Mod : IMod {
     public Mod(IModInterface modInterface) {
         this.Config = modInterface.ReadConfig<Config>();
         modInterface.RegisterScriptMod(new Xenon.Mods.Player(modInterface)); // load player mods
-        modInterface.RegisterScriptMod(new Xenon.Mods.PlayerData(modInterface)); // load player data mods
-        modInterface.RegisterScriptMod(new Xenon.Mods.ScratchSpots(modInterface)); // load scratch off stuff
+        modInterface.RegisterScriptMod(new Xenon.Mods.PlayerNL(modInterface)); // load other player mods
 
+        if (this.Config.NoItemCooldown)
+        {
+            modInterface.RegisterScriptMod(new Xenon.Mods.CooldownMod.Player(modInterface));
+            modInterface.RegisterScriptMod(new Xenon.Mods.CooldownMod.AbilityResource(modInterface));
+        }
 
         // done
         modInterface.Logger.Information("[XENON]: Loaded successfully!");
     }
 
-    public void Dispose() {
-        
-    }
+    public void Dispose() {}
 }

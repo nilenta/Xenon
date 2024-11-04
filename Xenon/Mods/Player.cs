@@ -6,7 +6,7 @@ using GDWeave;
 using WebfishingSampleMod;
 
 // this can be done better ik lol
-
+// i really gotta make this better thios sucks 
 namespace Xenon.Mods
 {
     public class Player : IScriptMod
@@ -32,6 +32,12 @@ namespace Xenon.Mods
                 t => t.Type is TokenType.OpAssign
             ]);
 
+            var walkSpeedMatch = new MultiTokenWaiter([
+                t => t.Type is TokenType.PrVar,
+                t => t is IdentifierToken { Name: "walk_speed" },
+                t => t.Type is TokenType.OpAssign
+            ]);
+
             // "": {
             var catchStructureMatch1 = new MultiTokenWaiter([
                 t => t is ConstantToken { Value: StringVariant { Value: "catch" } },
@@ -52,6 +58,11 @@ namespace Xenon.Mods
                 t => t.Type is TokenType.BracketClose,
             ]);
 
+            var instantCatchStructure = new MultiTokenWaiter([
+                t => t is ConstantToken { Value: StringVariant { Value: "catch" } },
+                t => t.Type is TokenType.Colon,
+                t => t is ConstantToken { Value: RealVariant { Value: 0.06 } },
+            ]);
 
             var baitWarnMatch = new MultiTokenWaiter([
                 t => t.Type is TokenType.PrVar,
@@ -65,6 +76,21 @@ namespace Xenon.Mods
                 t => t is IdentifierToken { Name: "GRAVITY" },
                 t => t.Type is TokenType.OpAssign
             ]);
+
+            // var speed =
+            var freecamMatch1 = new MultiTokenWaiter([
+                t => t.Type is TokenType.PrVar,
+                t => t is IdentifierToken { Name: "speed" },
+                t => t.Type is TokenType.OpAssign,
+            ]);
+
+            var freecamMatch2 = new MultiTokenWaiter([
+                t => t.Type is TokenType.PrVar,
+                t => t is IdentifierToken { Name: "max_dist" },
+                t => t.Type is TokenType.OpAssign,
+            ]);
+
+
 
             // var is_valid_fishing_spot = 
             var validFishingSpotMatch = new MultiTokenWaiter([
@@ -114,18 +140,7 @@ namespace Xenon.Mods
                 t => t is IdentifierToken { Name: "jump_height" },
                 t => t.Type is TokenType.OpMul,
             ]);
-
-
-            // func _scratch_off(type):
-            var scratchOffFuncMatch = new MultiTokenWaiter([
-                t => t.Type is TokenType.PrFunction,
-                t => t is IdentifierToken { Name: "_scratch_off" },
-                t => t.Type is TokenType.ParenthesisOpen,
-                t => t is IdentifierToken { Name: "type" },
-                t => t.Type is TokenType.ParenthesisClose,
-                t => t.Type is TokenType.Colon,
-                t => t.Type is TokenType.Newline,
-            ]);
+            
 
             // camera_zoom = clamp(camera_zoom, 0.0, x
             var cameraZoomClampMatch = new MultiTokenWaiter([
@@ -163,7 +178,31 @@ namespace Xenon.Mods
                     this.modInterface.Logger.Information($"[XENON]: Changed sprint speed to {this.Config.PlayerSprintSpeed}");
                     sprintMatch.Reset();
                     newlineConsumer.SetReady();
-                } else if (baitWarnMatch.Check(token))
+                } else if (freecamMatch1.Check(token))
+                {
+                    yield return token;
+                    yield return new ConstantToken(new RealVariant(this.Config.FreecamMovementSpeed));
+                    this.modInterface.Logger.Information($"[XENON]: Changed freecam speed multiplier (1) to {this.Config.FreecamMovementSpeed}");
+                    freecamMatch1.Reset();
+                    newlineConsumer.SetReady();
+                }
+                else if (freecamMatch2.Check(token) && this.Config.UncapFreecamMovement)
+                {
+                    yield return token;
+                    yield return new ConstantToken(new RealVariant(99999999999));
+                    this.modInterface.Logger.Information($"[XENON]: uncapped freecam movement");
+                    freecamMatch2.Reset();
+                    newlineConsumer.SetReady();
+                }
+                else if (walkSpeedMatch.Check(token))
+                {
+                    yield return token;
+                    yield return new ConstantToken(new RealVariant(this.Config.PlayerWalkSpeed));
+                    this.modInterface.Logger.Information($"[XENON]: Changed walk speed to {this.Config.PlayerWalkSpeed}");
+                    walkSpeedMatch.Reset();
+                    newlineConsumer.SetReady();
+                }
+                else if (baitWarnMatch.Check(token))
                 {
                     yield return token;
                     yield return new ConstantToken(new IntVariant(3));
@@ -175,7 +214,7 @@ namespace Xenon.Mods
                     yield return new ConstantToken(new RealVariant(1));
                     this.modInterface.Logger.Information($"[XENON]: Made it possible to catch with no bait (TOKEN): {token}");
                     catchStructureMatch1.Reset();
-                    //newlineConsumer.SetReady();
+                    // newlineConsumer.SetReady();
                 }
                 else if (catchStructureMatch2.Check(token) && this.Config.NoBaitOP)
                 {
@@ -233,7 +272,7 @@ namespace Xenon.Mods
                     speedMultMatch1.Reset();
                     newlineConsumer.SetReady();
                 }
-                else if (speedMultMatch2.Check(token))
+                else if (speedMultMatch2.Check(token) && this.Config.BellySlide)
                 {
                     yield return token;
                     yield return new ConstantToken(new RealVariant(this.Config.PlayerSpeedMult + 0.15));
@@ -241,14 +280,14 @@ namespace Xenon.Mods
                     speedMultMatch2.Reset();
                     newlineConsumer.SetReady();
                 }
-                else if (speedMultMatch3.Check(token))
+                else if (speedMultMatch3.Check(token) && this.Config.BellySlide)
                 {
                     yield return token;
                     yield return new ConstantToken(new RealVariant(1));
                     yield return new Token(TokenType.Comma);
                     yield return new ConstantToken(new IntVariant(0));
                     yield return new Token(TokenType.ParenthesisClose);
-                    // we dont need logging for this one ,doesnt read from any configs
+                    this.modInterface.Logger.Information($"[XENON]: bely slide");
                     speedMultMatch3.Reset();
                     newlineConsumer.SetReady();
                 }
@@ -261,17 +300,8 @@ namespace Xenon.Mods
                     newlineConsumer.SetReady();
 
                 }
-                else if (scratchOffFuncMatch.Check(token) && this.Config.GrowOnGamble)
+                else if (cameraZoomClampMatch.Check(token) && this.Config.UncapZoom)
                 {
-                    yield return token;
-
-                    yield return new IdentifierToken("player_scale");
-                    yield return new Token(TokenType.OpAssignAdd);
-                    yield return new ConstantToken(new RealVariant(this.Config.GrowOnGambleAmount));
-                    this.modInterface.Logger.Information($"[XENON]: Enabled grow on gamble and set growth to {this.Config.GrowOnGambleAmount}");
-                    scratchOffFuncMatch.Reset();
-                    newlineConsumer.SetReady();
-                } else if (cameraZoomClampMatch.Check(token) && this.Config.UncapZoom) {
                     yield return token;
                     yield return new ConstantToken(new RealVariant(999999999));
                     yield return new Token(TokenType.ParenthesisClose);
