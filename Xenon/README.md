@@ -12,7 +12,7 @@ Little mod for WEBFISHING that I will gradually update overtime with more stuff.
 - Belly Sliding (lol)
 - Camera movement speed + uncapping
 - A mod menu
-- Ability to create lobbies with custom codes.
+- ~~Ability to create lobbies with custom codes.~~ (removed due to v1.09)
 - Position saving
 
 ## Mod Menu
@@ -24,7 +24,7 @@ New, introduced as of v1.1.0. Also now where you *should* edit your configuratio
 ### Features:
 - Ability to give yourself all the "special" items (such as the lamedev tag, and that one weird special green color.) This **will** be visible to others too, with or without the mod.
 - Want every single item? Sure!
-- Grow/Shrink buttons
+- ~~Grow/Shrink buttons~~ (removed due to v1.09)
 - Give/Remove money, Possible to go in debt too lol.
 - Some fun stuff
 - Position Saving
