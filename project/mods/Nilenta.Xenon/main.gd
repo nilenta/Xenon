@@ -1,7 +1,11 @@
 extends Node
 
 const XENON_MENU = preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/xenon_menu.tscn")
+const FRIENDS_MENU = preload("res://mods/Nilenta.Xenon/Menu/Friends/friends_menu.tscn")
+
 const XENON_BUTTON = preload("res://mods/Nilenta.Xenon/Menu/xenon_button.tscn")
+const FRIENDS_BUTTON = preload("res://mods/Nilenta.Xenon/Menu/friends_button.tscn")
+
 
 onready var _data = preload("res://mods/Nilenta.Xenon/Components/Data.gd").new()
 onready var _Player = get_tree().current_scene.get_node_or_null("Viewport/main/entities/player")
@@ -59,3 +63,21 @@ func _add_mod_menu(node: Node) -> void:
 		
 		menu_list.margin_top -= 24
 		menu_list.margin_bottom += 24
+	
+	#if node.name == "main_menu":
+	#	var friends_menu: Node = FRIENDS_MENU.instance()
+	#	friends_menu.visible = false
+	#	#friends_menu.current_node = node
+	#	
+	#	node.add_child(friends_menu)
+	#	
+	#	var menu_list: Node = node.get_node("VBoxContainer")
+	#	var button: Button = FRIENDS_BUTTON.instance()
+	#	var settings_button: Node = menu_list.get_node("settings")
+	#	
+	#	menu_list.add_child(button)
+	#	menu_list.move_child(button, settings_button.get_index() - 1)
+	#	
+	#	menu_list.margin_top -= 24
+	#	menu_list.margin_bottom += 24
+		

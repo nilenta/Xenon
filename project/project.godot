@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "GenericUIButton",
+"class": "FriendsButton",
+"language": "GDScript",
+"path": "res://mods/Nilenta.Xenon/Menu/friends_button.gd"
+}, {
 "base": "Node",
 "class": "Hooks",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://mods/Nilenta.Xenon/Menu/xenon_button.gd"
 } ]
 _global_script_class_icons={
+"FriendsButton": "",
 "Hooks": "",
 "XenonButton": ""
 }

@@ -11,7 +11,7 @@ var _options = {
 var xenon_panels_data: Array = []
 var hooks
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
@@ -25,13 +25,13 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 		hooks._set_player(_Player)
 	
 	xenon_panels_data = [
-		{
-			"name": "Ban Yourself",
-			"description": "i was poking at network code and thought this was funny",
-			"elements": [
-				{"type": "button", "text": "Ban", "handler": "_banself", "params": []}
-			]
-		},
+		#{
+		#	"name": "Ban Yourself",
+		#	"description": "i was poking at network code and thought this was funny",
+		#	"elements": [
+		#		{"type": "button", "text": "Ban", "handler": "_banself", "params": []}
+		#	]
+		#},
 		{
 			"name": "Punch Yourself",
 			"description": "ffuck you in particular\n\nOnly works if griefing enabled",
@@ -142,7 +142,7 @@ func _banself() -> void:
 	_Network._send_P2P_Packet({"type": "ban", "new_host": "0"}, str(_Network.STEAM_ID), 2)
 
 func _punchself() -> void:
-	_Network._send_P2P_Packet({"type": "player_punch", "from": Vector3(0,0,0), "player": 1, "punch_type": 1}, str(_Network.STEAM_ID), 2)
+	_Network._send_P2P_Packet({"type": "player_punch", "from_pos": Vector3(0,0,0), "player": _Network.STEAM_ID, "punch_type": 1}, str(_Network.STEAM_ID), 2)
 
 func _punchall() -> void:
-	_Network._send_P2P_Packet({"type": "player_punch", "from": Vector3(0,0,0), "player": 1, "punch_type": 1}, "all", 2)
+	_Network._send_P2P_Packet({"type": "player_punch", "from_pos": Vector3(0,0,0), "player": _Network.STEAM_ID, "punch_type": 1}, "all", 2)

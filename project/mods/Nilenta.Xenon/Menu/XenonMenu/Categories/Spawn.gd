@@ -7,7 +7,7 @@ var _Network: Node
 var xenon_panels_data: Array = []
 var parentTree
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
@@ -20,7 +20,7 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 	register_option("SpawnOffsetX", 0)
 	register_option("SpawnOffsetY", 0)
 	register_option("SpawnOffsetZ", 0)
-	register_option("SpawnSteamId", 1)
+	register_option("SpawnSteamId", 0)
 	
 	var hooks_nodes = _tree.get_nodes_in_group("HooksGroup")
 	if hooks_nodes.size() > 0:
@@ -33,7 +33,7 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 			"name": "Object",
 			"description": "object u wana spawn",
 			"elements": [
-				{"type": "dropdown", "name": "SpawnType", "options": ["player", "tent", "loose_object", "fish_spawn", "fish_spawn_deep", "fish_spawn_alien", "raincloud", "aqua_fish", "ambient_bird", "picnic", "canvas", "bush", "rock", "fish_trap", "fish_trap_ocean", "island_tiny", "island_med", "island_big", "boombox", "well", "campfire", "chair", "table", "therapist_chair", "toilet", "whoopie", "beer", "greenscreen"], "initial_value": _options["SpawnType"], "key": "SpawnType"},
+				{"type": "dropdown", "name": "SpawnType", "options": ["void_portal", "player", "tent", "loose_object", "fish_spawn", "fish_spawn_deep", "fish_spawn_alien", "raincloud", "aqua_fish", "ambient_bird", "picnic", "canvas", "bush", "rock", "fish_trap", "fish_trap_ocean", "island_tiny", "island_med", "island_big", "boombox", "well", "campfire", "chair", "table", "therapist_chair", "toilet", "whoopie", "beer", "greenscreen"], "initial_value": _options["SpawnType"], "key": "SpawnType"},
 			]
 		},
 		{
@@ -54,7 +54,7 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 		},
 		{
 			"name": "Steam ID",
-			"description": "spawns under a steam id, if you dont know what this does just leave it as 1",
+			"description": "spawns under a steam id, if you dont know what this does just leave it as 0",
 			"elements": [
 				{"type": "float", "name": "SpawnSteamId", "initial_value": _options["SpawnSteamId"], "key": "SpawnSteamId"},
 			]
@@ -90,26 +90,36 @@ func _spawn_rand() -> void:
 	if current_zone == "":
 		current_zone = "main_zone" # fallback
 	var player_pos = _Player.global_transform.origin
+	
+	# curse you 1.09
+	var steamid = _Network.STEAM_ID
+	if _options["SpawnSteamId"] > 0:
+		steamid = _options["SpawnSteamId"]
+	
 	for i in _options["SpawnAmount"]:
 		var pos = player_pos + Vector3(rand_range(-2.5, 2.5), rand_range(-2.5, 2.5), rand_range(-2.5, 2.5))
-		_Network._sync_create_actor(_options["SpawnType"], pos, current_zone, -1, 1)
+		_Network._sync_create_actor(_options["SpawnType"], pos, current_zone, -1, steamid)
 	_PlayerData._send_notification("(XENON): Spawned " + str(_options["SpawnAmount"]) + " of " + _options["SpawnType"] + " around yourself.")
 
 func _spawn_test() -> void:
 	var current_zone = _PlayerData.player_saved_zone
 	if current_zone == "":
 		current_zone = "main_zone" # fallback
-		
-	var player_pos = _Player.global_transform.origin
 	
+	# curse you 1.09
+	var steamid = _Network.STEAM_ID
+	if _options["SpawnSteamId"] > 0:
+		steamid = _options["SpawnSteamId"]
+	
+	var player_pos = _Player.global_transform.origin
 	for i in _options["SpawnAmount"]:
 		var pos = player_pos + Vector3(_options["SpawnOffsetX"], _options["SpawnOffsetY"], _options["SpawnOffsetZ"])
-		_Network._sync_create_actor(_options["SpawnType"], pos, current_zone, -1, _options["SpawnSteamId"])
+		_Network._sync_create_actor(_options["SpawnType"], pos, current_zone, -1, steamid)
 	_PlayerData._send_notification("(XENON): Spawned " + str(_options["SpawnAmount"]) + " of " + _options["SpawnType"])
 
 func _spawn_rain() -> void:
 	var pos = Vector3(rand_range( - 100, 150), 42, rand_range( - 150, 100))
-	_Network._sync_create_actor("raincloud", pos, "main_zone", -1, 1)
+	_Network._sync_create_actor("raincloud", pos, "main_zone", -1, _Network.STEAM_ID)
 	_PlayerData._send_notification("(XENON): Spawned raincloud")
 
 func _spawn_meatball() -> void:
@@ -119,6 +129,6 @@ func _spawn_meatball() -> void:
 	var point = parentTree.get_nodes_in_group("fish_spawn")[randi() % parentTree.get_nodes_in_group("fish_spawn").size()]
 	
 	var pos = point.global_transform.origin
-	_Network._sync_create_actor("fish_spawn_alien", pos, current_zone, -1, 1)
+	_Network._sync_create_actor("fish_spawn_alien", pos, current_zone, -1, _Network.STEAM_ID)
 	_PlayerData._send_notification("(XENON): Spawned meteor")
 

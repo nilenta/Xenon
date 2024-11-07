@@ -6,14 +6,16 @@ var _Globals: Node
 var _Network: Node
 var xenon_panels_data: Array = []
 var parentTree
+var avatar_buffers: Dictionary = {}
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
 	_Network = Network
 	xenon_interface = Interface
 	parentTree = _tree
+	Steam.connect("avatar_loaded", self, "_on_loaded_avatar")
 	
 	#register_option("SpawnAmount", 1)
 	
@@ -36,19 +38,49 @@ func _load_panels() -> void:
 	xenon_interface.add_child(button3)
 
 
+func _get_friends_in_lobbies() -> Dictionary:
+	var results: Dictionary = {}
+
+	for i in range(0, Steam.getFriendCount()):
+		var steam_id: int = Steam.getFriendByIndex(i, Steam.FRIEND_FLAG_IMMEDIATE)
+		var game_info: Dictionary = Steam.getFriendGamePlayed(steam_id)
+		if game_info.empty():
+			continue
+		else:
+			var app_id: int = game_info['id']
+			var lobby = game_info['lobby']
+			
+
+			if app_id != Steam.getAppID() or lobby is String:
+				continue
+			
+			results[steam_id] = lobby
+
+	return results
+
 func _replacethislater() -> void:
-	var player_pos = _Player.global_transform.origin
-	# _Network._send_P2P_Packet({"type": "ban", "new_host": "0"}, "all", 2) # this is a bad thing maybe  i should report this
-	# _Network._send_P2P_Packet({"type": "message", "message": "asfsdafhasdlfhsdjkahfsdjalfhjkasdlhfkljasdkljfhasdkjfhasdfkljhasdfkljhasdflkjhasdfkjlhasdfkjhasdfkjhlasdfkhjasdfljkhasdfkjhlasdfkhasdfkjhasdfkhjasdfkjhasdfkjhasdfkjhasdfkljhasdfkhljasdfkhljfasdkhljfasdkhljfasdkhljfaskhljsdfakhljfasdkhljfasdkhljfasdkhljfasdkhljasdfhljkfasdkhljfasdhljkasdfkhljfasdkhljfaskhljfaskhljfasdkhljfasdkhljdfaskhljfasdhljkasdfhjklfasdkhljfasdkhlj", "sender": 1, "local": false, "position": _Player.global_transform.origin, "zone": "Global", "zone_owner": 1}, "all", 2)
-	#_Network._send_P2P_Packet({"type": "player_punch", "from": Vector3(0,0,0), "player": 1, "punch_type": 1}, "all", 2)
-	#_Network._send_P2P_Packet({"type": "new_player_join", "player_id": 76561198207248827}, "all", 2)
-	# print("[X]:", _Network.OWNED_ACTORS)
-	#_Network._send_P2P_Packet({"type": "recieve_host", "host_id": 76561198207248827}, "all", 2)
-	# _Player._sync_sfx("rain", player_pos, 4)
-	# _Player.global_transform.origin = Vector3(0,1666,0)
-	#print()
-	#Steam.setLobbyData(_Network.STEAM_LOBBY_ID, "code", "POOP")
-	#print("SET ID")
-	print(Steam.getLobbyData(_Network.STEAM_LOBBY_ID, "code"))
-	#_Network._send_P2P_Packet({"type": "actor_request_send", "list": data, "host": true, "user_id": _Network.STEAM_ID}, "all", 2, 1)
+	#var lobbies = _get_friends_in_lobbies()
+	#for lobby in lobbies.values():
+	#	var lobby_code = Steam.getLobbyData(lobby, "code")
+	#	print(lobby_code)
+		#_Network._connect_to_lobby(lobby)
+	for cosmetic in _Globals.cosmetic_data:
+		_PlayerData._unlock_cosmetic(cosmetic)
 	pass
+
+func _get_steam_av(steam_id: int) -> PoolByteArray:
+	Steam.getPlayerAvatar(2, steam_id)
+	yield(_wait_for_avatar(steam_id), "completed")
+	return avatar_buffers.get(steam_id, PoolByteArray())
+
+func _wait_for_avatar(steam_id: int) -> void:
+	while not avatar_buffers.has(steam_id):
+		yield(parentTree, "idle_frame")
+
+	print("Avatar buffer for Steam ID %s is now ready." % steam_id)
+	emit_signal("completed")
+
+func _on_loaded_avatar(user_id: int, avatar_size: int, buffer: PoolByteArray) -> void:
+	print("Avatar loaded for user: %s" % user_id)
+	print("Size: %s" % avatar_size)
+	avatar_buffers[user_id] = buffer

@@ -1,3 +1,12 @@
+# v1.1.1 (11/07/2024)
+
+Sighhhhh i love 1.09!
+
+- Removed ban yourself, No fun.
+- Removed resizing, serverside cap :(
+- Removed custom lobby code creation. Replacement will be put in place someday...
+- Nothing else other than this really...
+
 # v1.1.0 (11/03/2024)
 
 - Added mod menu (accessible via esc menu or on main menu)

@@ -2,7 +2,7 @@
 
 Little mod for WEBFISHING that I will gradually update overtime with more stuff.
 
-## Current configs (as of 1.1.0):
+## Current configs (as of 1.1.1):
 - Ability to modify player walk/sprint speed, dive distance, jump height, gravity, etc.
 - Zoom uncapping
 - Fishing without bait
@@ -36,7 +36,3 @@ New, introduced as of v1.1.0. Also now where you *should* edit your configuratio
 # Configuration
 
 You can modify the config with [Tacklebox](https://github.com/puppy-girl/TackleBox) or use the in-built Mod Menu (recommended).
-
-# Error reporting
-
-I would recommend reaching out to me directly (@nilenta on discord) to report bugs. I will occasionally check the issues for this github repo, but I wont respond instantly on github.

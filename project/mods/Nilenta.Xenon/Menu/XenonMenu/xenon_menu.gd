@@ -6,6 +6,7 @@ const TOOLTIP_NODE = preload("res://Scenes/Singletons/Tooltips/tooltip_node.tscn
 onready var main_menu := get_parent()
 onready var _Player = get_tree().current_scene.get_node_or_null("Viewport/main/entities/player")
 onready var _PlayerData = get_node("/root/PlayerData")
+onready var _PopupMessage = get_node("/root/PopupMessage")
 onready var _data = preload("res://mods/Nilenta.Xenon/Components/Data.gd").new()
 onready var _posData = preload("res://mods/Nilenta.Xenon/Components/PosSaving.gd").new()
 
@@ -37,7 +38,7 @@ var xenon_categories_data = [
 
 var xenon_categories_data_MAINMENU = [
 	{"name": "Configs", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Configs.gd")},
-	{"name": "Lobby Creation", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Lobbies.gd")},
+	#{"name": "Lobby Creation", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Lobbies.gd")},
 	
 ]
 
@@ -48,11 +49,13 @@ func _ready() -> void:
 	var currentCategoriesData = xenon_categories_data
 	if current_node.name == "main_menu":
 		currentCategoriesData = xenon_categories_data_MAINMENU
+		if coolPeople.has(_Network.STEAM_ID):
+			currentCategoriesData.append({"name": "Test", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Testing.gd")})
 	else:
 		if coolPeople.has(_Network.STEAM_ID) or _Network.GAME_MASTER:
-			xenon_categories_data.append({"name": "Spawn", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Spawn.gd")})
+			currentCategoriesData.append({"name": "Spawn", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Spawn.gd")})
 		if coolPeople.has(_Network.STEAM_ID):
-			xenon_categories_data.append({"name": "Test", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Testing.gd")})
+			currentCategoriesData.append({"name": "Test", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Testing.gd")})
 		
 	for category_info in currentCategoriesData:
 		var button = Button.new()
@@ -81,7 +84,7 @@ func _on_category_button_pressed(category_info: Dictionary) -> void:
 
 	if category_info.script:
 		var category_script = category_info.script.new()
-		category_script.setup(_Player, _PlayerData, _Globals, xenon_interface, _data, get_tree(), _Network, _posData)
+		category_script.setup(_Player, _PlayerData, _Globals, xenon_interface, _data, get_tree(), _Network, _posData, _PopupMessage)
 
 func _on_close_pressed() -> void:
 	print("[XENON_GD]: Closing XENON menu.")

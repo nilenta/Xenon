@@ -6,14 +6,16 @@ var _Globals: Node
 var _Network: Node
 var xenon_panels_data: Array = []
 var parentTree
+var _PopupMessage: Node
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, pop) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
 	_Network = Network
 	xenon_interface = Interface
 	parentTree = _tree
+	_PopupMessage = pop
 	
 	register_option("SetLobbyCode", "")
 	register_option("SetPublicity", "Public")
@@ -56,8 +58,19 @@ func _load_panels() -> void:
 
 
 func _replacethislater() -> void:
-	if _options["SetLobbyCode"] == "" or _options["SetLobbyCode"].length() > 5: return # F CUCK
-	if _options["MaxPlayers"] < 1: return # hhhhh
+	if _options["SetLobbyCode"] == "" or _options["SetLobbyCode"].length() > 5: 
+		_PopupMessage._show_popup("Lobby code cannot be blank or more than 5 characters")
+		return # F CUCK
+	if _options["MaxPlayers"] < 1: 
+		_PopupMessage._show_popup("Max players can only be 1 or greater.")
+		return # hhhhh
+	_options["SetLobbyCode"] = _options["SetLobbyCode"].to_upper()
+	
+	var doesExist = _check_if_lobby_exists(_options["SetLobbyCode"])
+	if doesExist:
+		# oh it exists
+		_PopupMessage._show_popup("There is already a lobby with this code.")
+		return
 	
 	# disconnect the network creating thing temp
 	Steam.disconnect("lobby_created", _Network, "_on_Lobby_Created")
@@ -116,3 +129,14 @@ func _on_Lobby_Created(connect, lobby_id):
 	Steam.setLobbyData(lobby_id, "banned_players", "")
 	Steam.allowP2PPacketRelay(true)
 	Steam.setLobbyData(lobby_id, "server_browser_value", str(0))
+
+
+func _check_if_lobby_exists(code):
+	# I SHOULD HAVE ADDED THIS IN 1.1.0
+	code = code.to_upper()
+	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
+	Steam.addRequestLobbyListStringFilter("code", str(code), Steam.LOBBY_COMPARISON_EQUAL)
+	Steam.requestLobbyList()
+	var lobbies = yield(Steam, "lobby_match_list")
+	
+	return lobbies.size() > 0

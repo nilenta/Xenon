@@ -13,16 +13,16 @@ var _options = {
 }
 
 var xenon_panels_data: Array = [
-	{
-		"name": "Player Size",
-		"description": "You wanna grow? You wanna shrink? Yea go on. Press that button.",
-		"elements": [
-			{"type": "input", "name": "Scale Change", "initial_value": str(_options["ScaleChange"]), "key": "ScaleChange"},
-			{"type": "button", "text": "Grow", "handler": "_on_grow_button_pressed", "params": []},
-			{"type": "button", "text": "Shrink", "handler": "_on_shrink_button_pressed", "params": []},
-			{"type": "button", "text": "Reset", "handler": "_on_size_reset_button_pressed"}
-		]
-	},
+	#{
+	#	"name": "Player Size",
+	#	"description": "You wanna grow? You wanna shrink? Yea go on. Press that button.",
+	#	"elements": [
+	#		{"type": "input", "name": "Scale Change", "initial_value": str(_options["ScaleChange"]), "key": "ScaleChange"},
+	#		{"type": "button", "text": "Grow", "handler": "_on_grow_button_pressed", "params": []},
+	#		{"type": "button", "text": "Shrink", "handler": "_on_shrink_button_pressed", "params": []},
+	#		{"type": "button", "text": "Reset", "handler": "_on_size_reset_button_pressed"}
+	#	]
+	#},
 	{
 		"name": "Give Money",
 		"description": "Hawk Tuna Reel on that Thang",
@@ -43,7 +43,7 @@ var xenon_panels_data: Array = [
 	}
 ]
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals

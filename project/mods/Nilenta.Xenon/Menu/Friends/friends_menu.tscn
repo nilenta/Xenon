@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Themes/panel_med.tres" type="StyleBox" id=1]
+[ext_resource path="res://Scenes/Menus/Main Menu/ui_generic_button.gd" type="Script" id=2]
+[ext_resource path="res://mods/Nilenta.Xenon/Menu/Friends/friends_menu.gd" type="Script" id=3]
+
+[node name="friends_menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.0627451, 0.109804, 0.192157, 0.431373 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.322
+anchor_top = 0.272
+anchor_right = 0.668
+anchor_bottom = 0.772
+margin_left = -72.2401
+margin_top = 1.23999
+margin_right = 104.44
+margin_bottom = 1.23999
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = -0.0042611
+anchor_top = 0.0244445
+anchor_right = 0.981739
+anchor_bottom = 0.0769136
+margin_left = 29.872
+margin_top = -0.200001
+margin_right = 29.8719
+margin_bottom = -0.200001
+rect_pivot_offset = Vector2( -402, 56.325 )
+text = "Friends"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="close" type="Button" parent="Panel"]
+anchor_left = 0.969998
+anchor_top = -0.025926
+anchor_right = 1.02204
+anchor_bottom = 0.041
+margin_left = 0.231934
+margin_top = 2.09808e-05
+margin_right = -0.323853
+margin_bottom = -0.140001
+rect_pivot_offset = Vector2( 31.7261, 18 )
+text = "X"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="refresh" type="Button" parent="Panel"]
+anchor_left = 0.87844
+anchor_top = -0.0240741
+anchor_right = 0.930482
+anchor_bottom = 0.0428519
+margin_left = 0.231934
+margin_top = 2.09808e-05
+margin_right = -0.323853
+margin_bottom = -0.140001
+rect_pivot_offset = Vector2( 31.7261, 18 )
+text = "R"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel2" type="Panel" parent="Panel"]
+anchor_top = 0.0762053
+anchor_right = 1.0
+anchor_bottom = 0.984448
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 11.0
+margin_right = -16.0
+margin_bottom = -15.451
+rect_scale = Vector2( 1, 0.999999 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel2/ScrollContainer"]
+margin_right = 777.0
+margin_bottom = 432.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 8
+
+[node name="RefreshButton" type="Button" parent="Panel/Panel2/ScrollContainer/VBoxContainer"]
+margin_right = 777.0
+margin_bottom = 20.0
+text = "Refresh"
+
+[connection signal="pressed" from="Panel/close" to="." method="_on_close_pressed"]
