@@ -12,6 +12,7 @@ onready var _Player = get_tree().current_scene.get_node_or_null("Viewport/main/e
 onready var _PlayerData = get_node("/root/PlayerData")
 onready var _Globals = get_node("/root/Globals")
 onready var _Network = get_node("/root/Network")
+var hooks
 
 var alreadyAttempted = false
 
@@ -27,10 +28,10 @@ func _ready():
 	for mod in MOD_PATHS:
 		_add_mod(mod)
 
-	var hooks = preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Hooks.gd").new()
+	hooks = preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Hooks.gd").new()
 	add_child(hooks)
 	
-	hooks.setup(_Player, _PlayerData)
+	hooks.setup()
 
 	get_tree().connect("node_added", self, "_add_mod_menu")
 	print("[XENON_GD]: Loaded")
@@ -53,7 +54,7 @@ func _add_mod_menu(node: Node) -> void:
 		xenon_menu.current_node = node
 		
 		node.add_child(xenon_menu)
-		
+		hooks.setup()
 		var menu_list: Node = node.get_node("VBoxContainer")
 		var button: Button = XENON_BUTTON.instance()
 		var settings_button: Node = menu_list.get_node("settings")

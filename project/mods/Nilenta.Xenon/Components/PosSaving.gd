@@ -8,6 +8,10 @@ func save_position(name: String, position: Vector3, zone: String):
 		"zone": zone
 	}
 	_save_position_data()
+	
+func delete_position(name: String):
+	position_data.erase(name)
+	_save_position_data()
 
 func load_position(name: String) -> Dictionary:
 	if name in position_data:

@@ -1,8 +1,9 @@
 extends Node
 class_name Hooks
 
-var _Player: Node
-var _PlayerData: Node
+onready var _PopupMessage = get_node("/root/PopupMessage")
+onready var _Player = get_tree().current_scene.get_node_or_null("Viewport/main/entities/player")
+onready var _PlayerData = get_node("/root/PlayerData")
 var _options = {
 	"Message": "",
 	"SpawnAmount": 1,
@@ -10,13 +11,13 @@ var _options = {
 	"SpawnOffsetX": 0,
 	"SpawnOffsetY": 0,
 	"SpawnOffsetZ": 0,
-	"SpawnSteamId": 0
+	"SpawnSteamId": 0,
+	"ChalkSize": 2
 }
 
-func setup(Player: Node, PlayerData: Node) -> void:
-	_Player = Player
-	_PlayerData = PlayerData
-	#_PlayerData.connect("_chalk_draw", self, "_on_chalk_draw")
+func setup() -> void:
+	yield(get_tree().create_timer(1.0), "timeout")
+	_PlayerData.connect("_chalk_draw", self, "_chalk_draw")
 
 func _set_option(key: String, value) -> void:
 	if key in _options:
@@ -40,9 +41,11 @@ func get_player_node() -> Node:
 		else:
 			return null
 
-func _on_chalk_draw(origin, size, color):
+func _chalk_draw(origin, size, color):
 	if get_player_node():
-		get_player_node()._paint(_options['ChalkSize'], color)
+		var csize = _options['ChalkSize']
+		if csize > 10: csize = 10 # ljklgdhfshgjkdfshgljksdfjghlkfsdghjkfsdhljgkfsdghljofsdghfdklghdjfkhgjkdfshgjfksd
+		get_player_node()._paint(csize, color)
 
 func _ready():
 	add_to_group("HooksGroup")

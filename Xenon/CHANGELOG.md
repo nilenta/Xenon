@@ -1,3 +1,11 @@
+# v1.1.2 (11/08/2024)
+
+- Fix fun tab
+- Lobby creation is back
+- Added the ability to change your chalk size.
+- funny new button
+- Added the ability to delete saved positions.
+
 # v1.1.1 (11/07/2024)
 
 Sighhhhh i love 1.09!

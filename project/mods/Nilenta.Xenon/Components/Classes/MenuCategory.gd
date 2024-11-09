@@ -17,7 +17,7 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 	for element in panel_info.elements:
 		if element["type"] == "button":
 			var button = Button.new()
-			button.text = element["text"]
+			button.text = "   " + element["text"] + "   " # jank
 			var params = element.get("params", [])
 			button.connect("pressed", self, element["handler"], params)
 			xenon_button_panel.get_node("HBoxContainer").add_child(button)

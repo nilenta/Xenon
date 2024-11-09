@@ -6,7 +6,8 @@ var _Globals: Node
 var xenon_interface: VBoxContainer
 var _Network: Node
 var _options = {
-	"Message": ""
+	"Message": "",
+	"ChalkSize": 2
 }
 var xenon_panels_data: Array = []
 var hooks
@@ -25,18 +26,25 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 		hooks._set_player(_Player)
 	
 	xenon_panels_data = [
-		#{
-		#	"name": "Ban Yourself",
-		#	"description": "i was poking at network code and thought this was funny",
-		#	"elements": [
-		#		{"type": "button", "text": "Ban", "handler": "_banself", "params": []}
-		#	]
-		#},
+		{
+			"name": "Chalk Size",
+			"description": "can be between 0.1 and 10.",
+			"elements": [
+				{"type": "float", "name": "ChalkSize", "initial_value": _options["ChalkSize"], "key": "ChalkSize"},
+			]
+		},
 		{
 			"name": "Punch Yourself",
 			"description": "ffuck you in particular\n\nOnly works if griefing enabled",
 			"elements": [
 				{"type": "button", "text": "Punch", "handler": "_punchself", "params": []}
+			]
+		},
+		{
+			"name": "Crash Game",
+			"description": "This will crash your game.",
+			"elements": [
+				{"type": "button", "text": "Crash", "handler": "_CRASH", "params": []}
 			]
 		}
 	]
@@ -47,8 +55,17 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 
 func _load_panels() -> void:
 	if _Network.GAME_MASTER:
-		xenon_panels_data[1].name = "Punch"
-		xenon_panels_data[1].elements.append({"type": "button", "text": "Punch Everyone", "handler": "_punchall", "params": []})
+		for panel_data in xenon_panels_data:
+			if panel_data.get("name") == "Punch Yourself":
+				panel_data["name"] = "Punch"
+				panel_data["elements"].append({
+					"type": "button",
+					"text": "Punch Everyone",
+					"handler": "_punchall",
+					"params": []
+				})
+			break
+	
 	for panel_info in xenon_panels_data:
 		_add_panel_to_interface(panel_info)
 
@@ -60,7 +77,7 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 	for element in panel_info.elements:
 		if element["type"] == "button":
 			var button = Button.new()
-			button.text = element["text"]
+			button.text = "   " + element["text"] + "   "
 			var params = element.get("params", [])
 			button.connect("pressed", self, element["handler"], params)
 			xenon_button_panel.get_node("HBoxContainer").add_child(button)
@@ -146,3 +163,6 @@ func _punchself() -> void:
 
 func _punchall() -> void:
 	_Network._send_P2P_Packet({"type": "player_punch", "from_pos": Vector3(0,0,0), "player": _Network.STEAM_ID, "punch_type": 1}, "all", 2)
+
+func _CRASH() -> void:
+	xenon_panels_data[90151].name = "yes" #  this will cause a crash

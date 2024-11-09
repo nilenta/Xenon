@@ -2,7 +2,7 @@
 
 Little mod for WEBFISHING that I will gradually update overtime with more stuff.
 
-## Current configs (as of 1.1.1):
+## Current configs (as of 1.1.2):
 - Ability to modify player walk/sprint speed, dive distance, jump height, gravity, etc.
 - Zoom uncapping
 - Fishing without bait
@@ -12,8 +12,10 @@ Little mod for WEBFISHING that I will gradually update overtime with more stuff.
 - Belly Sliding (lol)
 - Camera movement speed + uncapping
 - A mod menu
-- ~~Ability to create lobbies with custom codes.~~ (removed due to v1.09)
+- Ability to create lobbies with custom codes.
 - Position saving
+- Spawning in objects
+- Chalk Size Changing
 
 ## Mod Menu
 

@@ -38,7 +38,7 @@ var xenon_categories_data = [
 
 var xenon_categories_data_MAINMENU = [
 	{"name": "Configs", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Configs.gd")},
-	#{"name": "Lobby Creation", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Lobbies.gd")},
+	{"name": "Lobby Creation", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Lobbies.gd")},
 	
 ]
 

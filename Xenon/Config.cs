@@ -3,7 +3,7 @@
 namespace WebfishingSampleMod;
 
 public class Config {
-    // i should check if some of these work still aaasasfasdfas
+    // i should check if some of these work still aaasasfasd
     [JsonInclude] public float PlayerSprintSpeed = 6.44f;
     [JsonInclude] public float PlayerDiveDistance = 9.0f;
     [JsonInclude] public float PlayerJumpHeight = 7.5f;

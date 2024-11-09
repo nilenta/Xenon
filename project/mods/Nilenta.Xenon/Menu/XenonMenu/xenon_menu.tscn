@@ -113,8 +113,8 @@ margin_right = 29.8719
 margin_bottom = -0.200001
 rect_pivot_offset = Vector2( -402, 56.325 )
 bbcode_enabled = true
-bbcode_text = "[center][color=#55ACEE]Xenon[/color] [color=#F1A7A3]v1.1.1[/color] | [color=#55ACEE]Made[/color] [color=#F1A7A3]by[/color] [color=#55ACEE]nilenta[/color][/center]"
-text = "Xenon v1.1.1 | Made by nilenta"
+bbcode_text = "[center][color=#55ACEE]Xenon[/color] [color=#F1A7A3]v1.1.2[/color] | [color=#55ACEE]Made[/color] [color=#F1A7A3]by[/color] [color=#55ACEE]nilenta[/color][/center]"
+text = "Xenon v1.1.2 | Made by nilenta"
 scroll_active = false
 deselect_on_focus_loss_enabled = false
 __meta__ = {
