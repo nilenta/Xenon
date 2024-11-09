@@ -1,3 +1,17 @@
+# v1.1.4 (11/09/2024)
+
+- Quick fix to add a reset button to bait data.
+
+# v1.1.3 (11/09/2024)
+
+- Ability to uncap prop limits & be able to place props anywhere
+- You can now change stats of baits. Fun. It also saves.
+- Removed NoBaitOP.
+- New icon by ArcanaStyx
+- Fixed weird fishing rod bug where it would become super fast
+- Xenon now requires SizeUnlocker
+- Readded size changing
+
 # v1.1.2 (11/08/2024)
 
 - Fix fun tab

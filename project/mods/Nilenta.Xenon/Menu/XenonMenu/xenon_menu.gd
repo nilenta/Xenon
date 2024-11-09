@@ -12,7 +12,7 @@ onready var _posData = preload("res://mods/Nilenta.Xenon/Components/PosSaving.gd
 
 onready var _Globals = get_node("/root/Globals")
 onready var _Network = get_node("/root/Network")
-
+onready var _BaitData = preload("res://mods/Nilenta.Xenon/Components/BaitData.gd").new()
 
 var current_node: Node = null
 var current_category = ""
@@ -33,6 +33,7 @@ var xenon_categories_data = [
 	{"name": "Fun", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Fun.gd")},
 	{"name": "Positions", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Positions.gd")},
 	{"name": "Configs", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Configs.gd")},
+	{"name": "Bait Data", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/BaitData.gd")},
 	
 ]
 
@@ -45,6 +46,7 @@ var xenon_categories_data_MAINMENU = [
 
 func _ready() -> void:
 	_data._load_config()
+	_BaitData._load_bait_data()
 	print("[XENON_GD]: Initializing category buttons.")
 	var currentCategoriesData = xenon_categories_data
 	if current_node.name == "main_menu":
@@ -55,7 +57,8 @@ func _ready() -> void:
 		if coolPeople.has(_Network.STEAM_ID) or _Network.GAME_MASTER:
 			currentCategoriesData.append({"name": "Spawn", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Spawn.gd")})
 		if coolPeople.has(_Network.STEAM_ID):
-			currentCategoriesData.append({"name": "Test", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Testing.gd")})
+			#currentCategoriesData.append({"name": "Test", "script": preload("res://mods/Nilenta.Xenon/Menu/XenonMenu/Categories/Testing.gd")})
+			pass
 		
 	for category_info in currentCategoriesData:
 		var button = Button.new()
@@ -84,7 +87,7 @@ func _on_category_button_pressed(category_info: Dictionary) -> void:
 
 	if category_info.script:
 		var category_script = category_info.script.new()
-		category_script.setup(_Player, _PlayerData, _Globals, xenon_interface, _data, get_tree(), _Network, _posData, _PopupMessage)
+		category_script.setup(_Player, _PlayerData, _Globals, xenon_interface, _data, get_tree(), _Network, _posData, _PopupMessage, _BaitData)
 
 func _on_close_pressed() -> void:
 	print("[XENON_GD]: Closing XENON menu.")

@@ -6,7 +6,7 @@ var _Globals: Node
 var xenon_interface: VBoxContainer
 var _Network: Node
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals

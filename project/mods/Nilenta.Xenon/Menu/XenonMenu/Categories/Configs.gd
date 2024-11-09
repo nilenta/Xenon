@@ -8,7 +8,7 @@ var _Network: Node
 var _Data
 var xenon_panels_data: Array = []
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
@@ -74,19 +74,19 @@ func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContain
 			]
 		},
 		{
+			"name": "Uncap Props",
+			"requireRestart": true,
+			"description": "Gets rid of prop limit. Also lets you place them where ever the fuck you want.",
+			"elements": [
+				{"type": "boolean", "name": "PropsUncapped", "initial_value": _Data.config_data["PropsUncapped"], "key": "PropsUncapped"},
+			]
+		},
+		{
 			"name": "Fishing Without Bait",
 			"requireRestart": true,
 			"description": "Lets you be able to fish with no bait equipped.",
 			"elements": [
 				{"type": "boolean", "name": "AllowFishingWithNoBait", "initial_value": _Data.config_data["AllowFishingWithNoBait"], "key": "AllowFishingWithNoBait"},
-			]
-		},
-		{
-			"name": "No Bait OP",
-			"requireRestart": true,
-			"description": "Makes fishing with no bait overpowered. If this is disabled, fishing without bait will just make you catch nothing without bait.",
-			"elements": [
-				{"type": "boolean", "name": "NoBaitOP", "initial_value": _Data.config_data["NoBaitOP"], "key": "NoBaitOP"},
 			]
 		},
 		{

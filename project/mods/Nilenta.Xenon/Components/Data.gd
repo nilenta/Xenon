@@ -10,14 +10,14 @@ var config_data = {
 	"PlayerGravity": 32,
 	"UncapZoom": false,
 	"AllowFishingWithNoBait": false,
-	"NoBaitOP": false,
 	"FishAnywhere": false,
 	"FishingAutoClicker": false,
 	"InstantCatch": false,
 	"BellySlide": false,
 	"UncapFreecamMovement": 4.0,
 	"FreecamMovementSpeed": false,
-	"NoItemCooldown": false
+	"NoItemCooldown": false,
+	"PropsUncapped": false
 }
 
 func _load_saved_lobby_code():

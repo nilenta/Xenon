@@ -19,6 +19,13 @@ func setup() -> void:
 	yield(get_tree().create_timer(1.0), "timeout")
 	_PlayerData.connect("_chalk_draw", self, "_chalk_draw")
 
+func on_player_hud(_USERDATA, _baitData) -> void:
+	if get_player_node():
+		_Player.BAIT_DATA = _baitData.get_bait_data()
+		print("NEW BAIT DATA: " + str(_Player.BAIT_DATA))
+	pass
+
+
 func _set_option(key: String, value) -> void:
 	if key in _options:
 		print("[XENON_GD]: Changing ", key, " to ", str(value), " in Hooks.gd")

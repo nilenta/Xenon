@@ -8,6 +8,7 @@ const FRIENDS_BUTTON = preload("res://mods/Nilenta.Xenon/Menu/friends_button.tsc
 
 
 onready var _data = preload("res://mods/Nilenta.Xenon/Components/Data.gd").new()
+onready var _BaitData = preload("res://mods/Nilenta.Xenon/Components/BaitData.gd").new()
 onready var _Player = get_tree().current_scene.get_node_or_null("Viewport/main/entities/player")
 onready var _PlayerData = get_node("/root/PlayerData")
 onready var _Globals = get_node("/root/Globals")
@@ -23,6 +24,7 @@ const MOD_PATHS = [
 func _ready():
 	print("[XENON_GD]: Starting to load configuration")
 	_data._load_config()
+	_BaitData._load_bait_data()
 	print("[XENON_GD]: Configuration loaded")
 	
 	for mod in MOD_PATHS:
@@ -34,11 +36,18 @@ func _ready():
 	hooks.setup()
 
 	get_tree().connect("node_added", self, "_add_mod_menu")
+	get_tree().root.connect("child_entered_tree", self, "_add_startup_hooks_which_sucks_ass")
+	
 	print("[XENON_GD]: Loaded")
 
 func _add_mod(mod_path: String):
 	var mod_instance = load(mod_path).new()
 	add_child(mod_instance)
+
+func _add_startup_hooks_which_sucks_ass(node: Node) -> void:
+	if node.name == "playerhud": 
+		# oohhh im gonna cum
+		hooks.on_player_hud(_data, _BaitData)
 
 func _add_mod_menu(node: Node) -> void:
 	if node.name == "esc_menu" or node.name == "main_menu":

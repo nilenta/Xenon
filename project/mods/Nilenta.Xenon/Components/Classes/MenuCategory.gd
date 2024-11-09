@@ -1,5 +1,8 @@
 extends Node
 
+signal option_updated(key, value)
+signal panel_added(panel_name)
+
 var _options = {}
 var hooks
 var xenon_interface: VBoxContainer
@@ -17,7 +20,7 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 	for element in panel_info.elements:
 		if element["type"] == "button":
 			var button = Button.new()
-			button.text = "   " + element["text"] + "   " # jank
+			button.text = "   " + element["text"] + "   "
 			var params = element.get("params", [])
 			button.connect("pressed", self, element["handler"], params)
 			xenon_button_panel.get_node("HBoxContainer").add_child(button)
@@ -25,6 +28,8 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 			var text_input = LineEdit.new()
 			text_input.text = element["initial_value"]
 			text_input.name = element["name"]
+			if element.has("placeholder"):
+				text_input.placeholder_text = element["placeholder"]
 			text_input.connect("text_changed", self, "_on_text_changed", [element["key"]])
 			xenon_button_panel.get_node("HBoxContainer").add_child(text_input)
 		elif element["type"] == "boolean":
@@ -46,16 +51,23 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 			var number_input = LineEdit.new()
 			number_input.text = str(element["initial_value"])
 			number_input.name = element["name"]
+			if element.has("placeholder"):
+				number_input.placeholder_text = element["placeholder"]
 			number_input.connect("text_changed", self, "_on_number_changed", [element["key"], element["type"]])
 			xenon_button_panel.get_node("HBoxContainer").add_child(number_input)
 		elif element["type"] == "string":
 			var string_input = LineEdit.new()
 			string_input.text = element["initial_value"]
 			string_input.name = element["name"]
+			if element.has("placeholder"):
+				string_input.placeholder_text = element["placeholder"]
 			string_input.connect("text_changed", self, "_on_string_changed", [element["key"]])
 			xenon_button_panel.get_node("HBoxContainer").add_child(string_input)
 
 	xenon_interface.add_child(xenon_button_panel)
+
+	emit_signal("panel_added", panel_info.name)
+
 	var tooltip = preload("res://Scenes/Singletons/Tooltips/tooltip_node.tscn").instance()
 	tooltip.header = "[color=#6a4420]" + panel_info.name
 	tooltip.body = panel_info.description
@@ -64,25 +76,38 @@ func _add_panel_to_interface(panel_info: Dictionary) -> void:
 func _on_option_selected(selected_index: int, key: String) -> void:
 	print("[XENON_GD]: Option selected for key '" + key + "': " + str(selected_index))
 	_options[key] = selected_index == 0
-	if hooks: hooks._set_option(key, selected_index == 0)
+	if hooks: 
+		hooks._set_option(key, selected_index == 0)
+	
+	emit_signal("option_updated", key, _options[key])
 
 func _on_number_changed(current_text: String, key: String, value_type: String) -> void:
 	print("[XENON_GD]: Number changed in input field for key '" + key + "': " + current_text)
 	if key in _options:
 		if value_type == "float":
 			_options[key] = float(current_text)
-			if hooks: hooks._set_option(key, float(current_text))
+			if hooks: 
+				hooks._set_option(key, float(current_text))
 		elif value_type == "integer":
 			_options[key] = int(current_text)
-			if hooks: hooks._set_option(key, int(current_text))
+			if hooks: 
+				hooks._set_option(key, int(current_text))
+
+	emit_signal("option_updated", key, _options[key])
 
 func _on_string_changed(current_text: String, key: String) -> void:
 	print("[XENON_GD]: String changed in input field for key '" + key + "': " + current_text)
 	if key in _options:
 		_options[key] = current_text
-		if hooks: hooks._set_option(key, current_text)
+		if hooks: 
+			hooks._set_option(key, current_text)
+
+	emit_signal("option_updated", key, _options[key])
 
 func _on_dropdown_selected(selected_index: int, key: String, options: Array) -> void:
 	print("[XENON_GD]: Dropdown selected for key '" + key + "': " + options[selected_index])
 	_options[key] = options[selected_index]
-	if hooks: hooks._set_option(key, options[selected_index])
+	if hooks: 
+		hooks._set_option(key, options[selected_index])
+
+	emit_signal("option_updated", key, _options[key])

@@ -10,7 +10,7 @@ var _PopupMessage: Node
 
 var SERVER_CREATION_TYPE = 0;
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, pop) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, pop, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals

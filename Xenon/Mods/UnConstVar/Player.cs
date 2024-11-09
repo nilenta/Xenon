@@ -9,16 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using WebfishingSampleMod;
 
-namespace Xenon.Mods
+namespace Xenon.Mods.UnConstVar
 {
-    public class PlayerNL : IScriptMod
+    public class Player : IScriptMod
     {
         private Config Config;
         private IModInterface modInterface;
+        private int modificationCount = 0;
 
-        public PlayerNL(IModInterface modInterface)
+        public Player(IModInterface modInterface)
         {
-            modInterface.Logger.Information("[XENON]: Loading modifications for Scenes/Entities/Player/player.gdc");
+            modInterface.Logger.Information("[XENON]: Loading const -> var modifications for Scenes/Entities/Player/player.gdc");
             this.Config = modInterface.ReadConfig<Config>();
             this.modInterface = modInterface;
         }
@@ -29,10 +30,11 @@ namespace Xenon.Mods
         {
             foreach (var token in tokens)
             {
-                if (token is ConstantToken { Value: RealVariant { Value: 0.06 } } identifierToken && this.Config.InstantCatch) // TERRINBLE TERRIBLE TERRIBLE HACK
+                if (modificationCount < 5 && token is {Type: TokenType.PrConst }) // TERRINBLE TERRIBLE TERRIBLE HACKJ
                 {
-                    this.modInterface.Logger.Information($"[XENON]: Instant catch go my scarab (TOKEN): {token}");
-                    identifierToken.Value = new RealVariant(1);
+                    this.modInterface.Logger.Information($"[XENON]: Change Const to VAR CAUSE BAIOT DATA IS A CONSTANT IMMA CRY (TOKEN): {token}");
+                    token.Type = TokenType.PrVar;
+                    modificationCount++;
                 }
 
                 yield return token;

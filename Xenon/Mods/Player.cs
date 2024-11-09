@@ -6,7 +6,8 @@ using GDWeave;
 using WebfishingSampleMod;
 
 // this can be done better ik lol
-// i really gotta make this better thios sucks 
+// i really gotta make this better thios sucks
+// to do: make this shit better 
 namespace Xenon.Mods
 {
     public class Player : IScriptMod
@@ -215,29 +216,6 @@ namespace Xenon.Mods
                     this.modInterface.Logger.Information($"[XENON]: Made it possible to catch with no bait (TOKEN): {token}");
                     catchStructureMatch1.Reset();
                     // newlineConsumer.SetReady();
-                }
-                else if (catchStructureMatch2.Check(token) && this.Config.NoBaitOP)
-                {
-                    yield return new ConstantToken(new IntVariant(4));
-                    catchStructureMatch2.Reset();
-                    //newlineConsumer.SetReady();
-                }
-                else if (catchStructureMatch3.Check(token) && this.Config.NoBaitOP)
-                {
-                    yield return new ConstantToken(new RealVariant(0.01));
-                    yield return new Token(TokenType.Comma);
-                    yield return new ConstantToken(new RealVariant(0.01));
-                    yield return new Token(TokenType.Comma);
-                    yield return new ConstantToken(new RealVariant(0.01));
-                    yield return new Token(TokenType.Comma);
-                    yield return new ConstantToken(new RealVariant(0.01));
-                    yield return new Token(TokenType.Comma);
-                    yield return new ConstantToken(new RealVariant(0.01));
-                    yield return new Token(TokenType.Comma);
-                    yield return new ConstantToken(new RealVariant(1.0));
-                    yield return new Token(TokenType.BracketClose);
-                    catchStructureMatch3.Reset();
-                    //newlineConsumer.SetReady();
                 }
 
                 else if (gravityMatch.Check(token))

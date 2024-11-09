@@ -12,7 +12,7 @@ var _options = {
 var xenon_panels_data: Array = []
 var hooks
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
@@ -165,4 +165,6 @@ func _punchall() -> void:
 	_Network._send_P2P_Packet({"type": "player_punch", "from_pos": Vector3(0,0,0), "player": _Network.STEAM_ID, "punch_type": 1}, "all", 2)
 
 func _CRASH() -> void:
-	xenon_panels_data[90151].name = "yes" #  this will cause a crash
+	#  this will cause a crash
+	while true:
+		pass

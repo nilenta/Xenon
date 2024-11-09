@@ -7,13 +7,20 @@ public class Mod : IMod {
 
     public Mod(IModInterface modInterface) {
         this.Config = modInterface.ReadConfig<Config>();
-        modInterface.RegisterScriptMod(new Xenon.Mods.Player(modInterface)); // load player mods
-        modInterface.RegisterScriptMod(new Xenon.Mods.PlayerNL(modInterface)); // load other player mods
+        modInterface.RegisterScriptMod(new Xenon.Mods.Player(modInterface));
 
+        modInterface.RegisterScriptMod(new Xenon.Mods.UnConstVar.Player(modInterface));
+        
         if (this.Config.NoItemCooldown)
         {
             modInterface.RegisterScriptMod(new Xenon.Mods.CooldownMod.Player(modInterface));
             modInterface.RegisterScriptMod(new Xenon.Mods.CooldownMod.AbilityResource(modInterface));
+        }
+
+
+        if (this.Config.PropsUncapped)
+        {
+            modInterface.RegisterScriptMod(new Xenon.Mods.UncapProps.Player(modInterface));
         }
 
         // done

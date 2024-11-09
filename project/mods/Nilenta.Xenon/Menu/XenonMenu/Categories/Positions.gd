@@ -10,7 +10,7 @@ var _pos_data
 var pos_name_text_box: LineEdit
 var pos_list_panel: VBoxContainer
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals

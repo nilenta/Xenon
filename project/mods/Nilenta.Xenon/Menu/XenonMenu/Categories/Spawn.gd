@@ -7,7 +7,7 @@ var _Network: Node
 var xenon_panels_data: Array = []
 var parentTree
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals

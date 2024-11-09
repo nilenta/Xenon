@@ -13,16 +13,18 @@ var _options = {
 }
 
 var xenon_panels_data: Array = [
-	#{
-	#	"name": "Player Size",
-	#	"description": "You wanna grow? You wanna shrink? Yea go on. Press that button.",
-	#	"elements": [
-	#		{"type": "input", "name": "Scale Change", "initial_value": str(_options["ScaleChange"]), "key": "ScaleChange"},
-	#		{"type": "button", "text": "Grow", "handler": "_on_grow_button_pressed", "params": []},
-	#		{"type": "button", "text": "Shrink", "handler": "_on_shrink_button_pressed", "params": []},
-	#		{"type": "button", "text": "Reset", "handler": "_on_size_reset_button_pressed"}
-	#	]
-	#},
+	{
+		"name": "Player Size",
+		"description": "You wanna grow? You wanna shrink? Yea go on. Press that button.\nGrow Y and Shrink Y both mess with your Y values.",
+		"elements": [
+			{"type": "input", "name": "Scale Change", "initial_value": str(_options["ScaleChange"]), "key": "ScaleChange"},
+			{"type": "button", "text": "Grow", "handler": "_on_grow_button_pressed", "params": []},
+			{"type": "button", "text": "Shrink", "handler": "_on_shrink_button_pressed", "params": []},
+			
+			{"type": "button", "text": "Reset", "handler": "_on_size_reset_button_pressed"}
+			
+		]
+	},
 	{
 		"name": "Give Money",
 		"description": "Hawk Tuna Reel on that Thang",
@@ -43,7 +45,7 @@ var xenon_panels_data: Array = [
 	}
 ]
 
-func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg) -> void:
+func setup(Player: Node, PlayerData: Node, Globals: Node, Interface: VBoxContainer, Data, _tree, Network, _posData, PopupMsg, bd) -> void:
 	_Player = Player
 	_PlayerData = PlayerData
 	_Globals = Globals
@@ -96,10 +98,12 @@ func _on_shrink_button_pressed() -> void:
 	_PlayerData._send_notification("(XENON): Removed " + str(_options["ScaleChange"]) + " from your scale.")
 	_Player.player_scale -= _options["ScaleChange"]
 
+
 func _on_size_reset_button_pressed() -> void:
 	print("[XENON_GD]: Reset size button pressed. Resetting player scale to 1.")
 	_PlayerData._send_notification("(XENON): Reset your scale.")
 	_Player.player_scale = 1
+	_Player.player_scale_y = 1
 
 func _give_money() -> void:
 	print("[XENON_GD]: Giving player $", str(_options["Money"]))
