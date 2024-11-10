@@ -2,7 +2,7 @@
 
 Little mod for WEBFISHING that I will gradually update overtime with more stuff. Icon made by ArcanaStyx
 
-## Current configs (as of 1.1.5):
+## Current configs (as of 1.1.6):
 - Ability to modify player walk/sprint speed, dive distance, jump height, gravity, etc.
 - Zoom uncapping
 - Fishing without bait

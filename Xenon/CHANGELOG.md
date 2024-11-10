@@ -1,3 +1,7 @@
+# v1.1.6 (11/09/2024)
+
+- Fix inconsistency with bait data. OOPS
+
 # v1.1.5 (11/09/2024)
 
 - Quick bug fix

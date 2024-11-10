@@ -22,7 +22,6 @@ func setup() -> void:
 func on_player_hud(_USERDATA, _baitData) -> void:
 	if get_player_node():
 		_Player.BAIT_DATA = _baitData.get_bait_data()
-		print("NEW BAIT DATA: " + str(_Player.BAIT_DATA))
 	pass
 
 

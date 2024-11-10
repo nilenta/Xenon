@@ -45,11 +45,13 @@ func _add_mod(mod_path: String):
 	add_child(mod_instance)
 
 func _add_startup_hooks_which_sucks_ass(node: Node) -> void:
+	hooks.on_player_hud(_data, _BaitData) # hack
 	if node.name == "playerhud": 
 		# oohhh im gonna cum
 		hooks.on_player_hud(_data, _BaitData)
 
 func _add_mod_menu(node: Node) -> void:
+	hooks.on_player_hud(_data, _BaitData) # hack
 	if node.name == "esc_menu" or node.name == "main_menu":
 		# handle saved lobby code
 		var lobby_code = _data._load_saved_lobby_code()

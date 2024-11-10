@@ -6,6 +6,8 @@ using GDWeave;
 using WebfishingSampleMod;
 using System.Reflection.Metadata;
 
+// i dont even think this does anything lo
+
 namespace Xenon.Mods.CooldownMod
 {
     public class AbilityResource : IScriptMod
