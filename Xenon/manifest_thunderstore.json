@@ -1,6 +1,6 @@
 {
   "name": "Xenon",
-  "version_number": "1.1.4",
+  "version_number": "1.1.5",
   "description": "Mod that lets you mess around with a buncha settings. Now with a mod menu!",
   "website_url": "https://github.com/nilenta/Xenon",
   "dependencies": [ "NotNet-GDWeave-2.0.12", "nowaha-SizeUnlocker-1.0.1" ]

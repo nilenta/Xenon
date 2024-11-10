@@ -2,7 +2,7 @@
 
 Little mod for WEBFISHING that I will gradually update overtime with more stuff. Icon made by ArcanaStyx
 
-## Current configs (as of 1.1.4):
+## Current configs (as of 1.1.5):
 - Ability to modify player walk/sprint speed, dive distance, jump height, gravity, etc.
 - Zoom uncapping
 - Fishing without bait
@@ -17,6 +17,7 @@ Little mod for WEBFISHING that I will gradually update overtime with more stuff.
 - Spawning in objects
 - Chalk Size Changing
 - Size Changing
+- Prop uncapping (server host only) & ability to be able to place props in any position
 
 ## Mod Menu
 
@@ -33,7 +34,6 @@ New, introduced as of v1.1.0. Also now where you *should* edit your configuratio
 - Position Saving
 - Spawning in objects (only as game host)
 - Bait data modifying
-- 
 - More to come soon. Open to suggestions
 
 ![Aw man](https://raw.githubusercontent.com/nilenta/data/refs/heads/main/eAc6esdzZ6.png)

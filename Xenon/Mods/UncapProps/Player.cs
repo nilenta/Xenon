@@ -9,6 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using WebfishingSampleMod;
 
+
+// this sucks btw dont use this as reference
+
+// also di dan opopsy
+
 namespace Xenon.Mods.UncapProps
 {
     public class Player : IScriptMod
@@ -100,7 +105,12 @@ namespace Xenon.Mods.UncapProps
                 if (propMatch1.Check(token))
                 {
                     yield return token;
-                    yield return new ConstantToken(new IntVariant(999999));
+                    yield return new ConstantToken(new IntVariant(4));
+                    yield return new Token(TokenType.OpAnd);
+                    yield return new Token(TokenType.OpNot);
+                    yield return new IdentifierToken("Network");
+                    yield return new Token(TokenType.Period);
+                    yield return new IdentifierToken("GAME_MASTER");
                     yield return new Token(TokenType.Colon);
 
                     this.modInterface.Logger.Information($"[XENON]: {token}");

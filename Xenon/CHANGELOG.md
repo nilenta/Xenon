@@ -1,3 +1,7 @@
+# v1.1.5 (11/09/2024)
+
+- Quick bug fix
+
 # v1.1.4 (11/09/2024)
 
 - Quick fix to add a reset button to bait data.
