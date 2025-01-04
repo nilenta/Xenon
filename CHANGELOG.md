@@ -1,3 +1,8 @@
+# v1.1.9 (1/3/2025)
+
+- Updated functions to work for WEBFISHING v1.12
+- Removed broken bait data tab and unused friends list
+
 # v1.1.0 (11/03/2024)
 
 - Added mod menu (accessible via esc menu or on main menu)
