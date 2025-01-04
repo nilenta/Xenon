@@ -1,9 +1,0 @@
-.idea/
-.vs/
-*.user
-/local
-
-bin/
-obj/
-
-Xenon-*.zip
