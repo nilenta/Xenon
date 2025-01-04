@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblySearchPaths>$(AssemblySearchPaths);$(GDWeavePath)/core</AssemblySearchPaths>
+        <Version>1.0.0.0</Version>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    </PropertyGroup>
+    <ItemGroup>
+      <None Remove="Xenon-HookLineSinker-Release.zip" />
+      <None Remove="Xenon-Thunderstorm-Release.zip" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="GDWeave">
+          <HintPath>..\..\GDWeave\GDWeave\core\GDWeave.dll</HintPath>
+        </Reference>
+        <Reference Include="Serilog">
+          <HintPath>..\..\GDWeave\GDWeave\core\Serilog.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../manifest.json" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="CHANGELOG.md">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="manifest_thunderstore.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="mod_info.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="README.md">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="call &quot;PostBuildZip.bat&quot; &quot;$(Configuration)&quot; &quot;$(OutDir)&quot; &quot;$(ProjectDir)&quot;" />
+  </Target>
+</Project>
