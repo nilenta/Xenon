@@ -1,0 +1,11 @@
+{
+  "Id": "Nilenta.Xenon",
+  "AssemblyPath": "Xenon.dll",
+  "PackPath": "Xenon.pck",
+  "Metadata": {
+    "Name": "Xenon",
+    "Author": "nilenta",
+    "Version": "1.1.9",
+    "Description": "Mod that lets you mess around with a buncha settings Now with a mod menu!"
+  }
+}
